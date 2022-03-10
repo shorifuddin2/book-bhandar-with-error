@@ -92,9 +92,12 @@ const createCard = (book) => {
   div.classList.add("card");
 
   let overview;
-  if(overview < 100){
-    overview = book.overview
+  if(book.overview.length > 100){
+    overview = book.overview.slice(0, 100) + '...';
   }
+ else{
+    overview = book.overview;
+  };
   div.innerHTML = `
   <div class="image-container">
     <img
@@ -103,7 +106,7 @@ const createCard = (book) => {
     />
     <div class="button-container">
       <button onclick="addToWishlist('${book.id}')" class="button"><i class="fa-solid fa-heart"></i></button>
-      <button onclick()="addToCart" class="button">Add To Cart</button>
+      <button onclick="addToCart('${book.id}')" class="button">Add To Cart</button>
     </div>
   </div>
   <div class="info-container">
@@ -131,6 +134,7 @@ const addToWishlist = (id) => {
 };
 
 const displayCart = () => {
+  document.getElementById("cart").innerHTML = "";
   const cart = getCartItems();
   console.log(cart);
 
@@ -141,6 +145,7 @@ const displayCart = () => {
 };
 
 const displayWishlist = () => {
+  document.getElementById("wishlist").innerHTML = "";
   const wishlist = getWishlistItems();
   console.log(wishlist);
 
